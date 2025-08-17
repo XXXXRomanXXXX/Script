@@ -56,8 +56,8 @@ function provisioning_start() {
         "${workflows_dir}" \
         "${WORKFLOWS[@]}"
     provisioning_get_files \
-        "${COMFYUI_DIR}/models/lora" \
-        "${LORA_MODELS[@]}"
+        "${COMFYUI_DIR}/models/loras" \
+        "${LORAS_MODELS[@]}"
     provisioning_get_files \
         "${COMFYUI_DIR}/models/unet" \
         "${UNET_MODELS[@]}"
@@ -179,5 +179,6 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
+
 
 

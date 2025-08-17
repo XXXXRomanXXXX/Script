@@ -36,4 +36,5 @@ fuser -k 3000/tcp || true
 # Запуск ComfyUI
 cd /workspace/ComfyUI
 source venv/bin/activate
-python main.py --listen 0.0.0.0 --port 3000
+python main.py --listen 0.0.0.0 --port 1111
+

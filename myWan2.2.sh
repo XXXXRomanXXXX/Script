@@ -18,29 +18,29 @@ PIP_PACKAGES=(
 NODES=(
     #"https://github.com/ltdrdata/ComfyUI-Manager"
     #"https://github.com/cubiq/ComfyUI_essentials"
+    #"https://github.com/city96/ComfyUI-GGUF"
 )
 
 WORKFLOWS=(
-
+    "https://raw.githubusercontent.com/XXXXRomanXXXX/Script/refs/heads/main/Wan%202.2%20Lightning%20Olivio.json"
 )
 
-CHECKPOINT_MODELS=(
-    "https://civitai.com/api/download/models/798204?type=Model&format=SafeTensor&size=full&fp=fp16"
+CLIP_MODELS=(
+    "https://huggingface.co/chatpig/encoder/resolve/main/umt5_xxl_fp8_e4m3fn_scaled.safetensors?download=true"
 )
 
 UNET_MODELS=(
+    "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF/resolve/main/HighNoise/Wan2.2-I2V-A14B-HighNoise-Q6_K.gguf?download=true"
+    "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF/resolve/main/LowNoise/Wan2.2-I2V-A14B-LowNoise-Q6_K.gguf?download=true"
 )
 
 LORA_MODELS=(
+    "https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/high_noise_model.safetensors?download=true"
+    "https://huggingface.co/lightx2v/Wan2.2-Lightning/resolve/main/Wan2.2-I2V-A14B-4steps-lora-rank64-Seko-V1/low_noise_model.safetensors?download=true"
 )
 
 VAE_MODELS=(
-)
-
-ESRGAN_MODELS=(
-)
-
-CONTROLNET_MODELS=(
+    "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF/resolve/main/VAE/Wan2.1_VAE.safetensors?download=true"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -50,24 +50,29 @@ function provisioning_start() {
     provisioning_get_apt_packages
     provisioning_get_nodes
     provisioning_get_pip_packages
+    workflows_dir="${COMFYUI_DIR}/user/default/workflows"
+    mkdir -p "${workflows_dir}"
     provisioning_get_files \
-        "${COMFYUI_DIR}/models/checkpoints" \
-        "${CHECKPOINT_MODELS[@]}"
+        "${workflows_dir}" \
+        "${WORKFLOWS[@]}"
+    # Get licensed models if HF_TOKEN set & valid
+    if provisioning_has_valid_hf_token; then
+        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/flux1-dev.safetensors")
+        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-dev/resolve/main/ae.safetensors")
+    else
+        UNET_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/flux1-schnell.safetensors")
+        VAE_MODELS+=("https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors")
+        sed -i 's/flux1-dev\.safetensors/flux1-schnell.safetensors/g' "${workflows_dir}/flux_dev_example.json"
+    fi
     provisioning_get_files \
         "${COMFYUI_DIR}/models/unet" \
         "${UNET_MODELS[@]}"
     provisioning_get_files \
-        "${COMFYUI_DIR}/models/lora" \
-        "${LORA_MODELS[@]}"
-    provisioning_get_files \
-        "${COMFYUI_DIR}/models/controlnet" \
-        "${CONTROLNET_MODELS[@]}"
-    provisioning_get_files \
         "${COMFYUI_DIR}/models/vae" \
         "${VAE_MODELS[@]}"
     provisioning_get_files \
-        "${COMFYUI_DIR}/models/esrgan" \
-        "${ESRGAN_MODELS[@]}"
+        "${COMFYUI_DIR}/models/clip" \
+        "${CLIP_MODELS[@]}"
     provisioning_print_end
 }
 

@@ -18,7 +18,7 @@ PIP_PACKAGES=(
 NODES=(
     #"https://github.com/ltdrdata/ComfyUI-Manager"
     #"https://github.com/cubiq/ComfyUI_essentials"
-    #"https://github.com/city96/ComfyUI-GGUF"
+    "https://github.com/city96/ComfyUI-GGUF"
 )
 
 WORKFLOWS=(
@@ -179,6 +179,7 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
+
 
 
 

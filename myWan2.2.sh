@@ -3,6 +3,18 @@
 source /venv/main/bin/activate
 COMFYUI_DIR=${WORKSPACE}/ComfyUI
 
+function provisioning_update_comfyui() {
+    if [[ -d "$COMFYUI_DIR/.git" ]]; then
+        printf "Updating ComfyUI core in %s...\n" "$COMFYUI_DIR"
+        ( cd "$COMFYUI_DIR" && git pull )
+        if [[ -f "$COMFYUI_DIR/requirements.txt" ]]; then
+            pip install --no-cache-dir -r "$COMFYUI_DIR/requirements.txt"
+        fi
+    fi
+}
+
+provisioning_update_comfyui
+
 # Packages are installed after nodes so we can fix them...
 
 APT_PACKAGES=(
@@ -179,6 +191,7 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
+
 
 
 

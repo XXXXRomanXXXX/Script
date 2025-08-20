@@ -192,6 +192,7 @@ if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
 
+cd "$COMFYUI_DIR"
 python update.py "$COMFYUI_DIR"
 
 if [[ -f update_new.py ]]; then
@@ -199,4 +200,5 @@ if [[ -f update_new.py ]]; then
     echo "Running updater again since it got updated."
     python update.py "$COMFYUI_DIR" --skip_self_update
 fi
+
 

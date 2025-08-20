@@ -189,12 +189,13 @@ if [[ ! -f /.noprovisioning ]]; then
 fi
 
 cd "$COMFYUI_DIR"
-python update.py "$COMFYUI_DIR"
+python update.py "${COMFYUI_DIR}"
 
 if [[ -f update_new.py ]]; then
     mv -f update_new.py update.py
     echo "Running updater again since it got updated."
-    python update.py "$COMFYUI_DIR" --skip_self_update
+    python update.py "${COMFYUI_DIR}" --skip_self_update
 fi
+
 
 

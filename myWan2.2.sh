@@ -46,7 +46,7 @@ VAE_MODELS=(
     "https://huggingface.co/QuantStack/Wan2.2-I2V-A14B-GGUF/resolve/main/VAE/Wan2.1_VAE.safetensors?download=true"
 )
 UPDATE=(
-    "https://github.com/XXXXRomanXXXX/Script/edit/main/update.py"
+    "https://github.com/XXXXRomanXXXX/Script/blob/main/update.py"
 )
 
 ### DO NOT EDIT BELOW HERE UNLESS YOU KNOW WHAT YOU ARE DOING ###
@@ -200,5 +200,6 @@ if [[ -f update_new.py ]]; then
     echo "Running updater again since it got updated."
     python update.py "$COMFYUI_DIR" --skip_self_update
 fi
+
 
 

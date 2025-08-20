@@ -196,6 +196,3 @@ if [[ -f update_new.py ]]; then
     echo "Running updater again since it got updated."
     python update.py "${COMFYUI_DIR}" --skip_self_update
 fi
-
-
-

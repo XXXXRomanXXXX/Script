@@ -15,9 +15,12 @@ PIP_PACKAGES=(
     #"package-2"
 )
 
-CUSTOM_NODES=(
+NODES=(
     #"https://github.com/ltdrdata/ComfyUI-Manager"
     #"https://github.com/cubiq/ComfyUI_essentials"
+)
+
+CUSTOM_NODES=(
     "https://github.com/city96/ComfyUI-GGUF"
 )
 
@@ -182,6 +185,7 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
+
 
 
 

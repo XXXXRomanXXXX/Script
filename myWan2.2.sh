@@ -15,7 +15,7 @@ PIP_PACKAGES=(
     #"package-2"
 )
 
-NODES=(
+CUSTOM_NODES=(
     #"https://github.com/ltdrdata/ComfyUI-Manager"
     #"https://github.com/cubiq/ComfyUI_essentials"
     "https://github.com/city96/ComfyUI-GGUF"
@@ -55,6 +55,9 @@ function provisioning_start() {
     provisioning_get_files \
         "${workflows_dir}" \
         "${WORKFLOWS[@]}"
+    provisioning_get_files \
+        "${COMFYUI_DIR}/custom_nodes" \
+        "${CUSTOM_NODES[@]}"
     provisioning_get_files \
         "${COMFYUI_DIR}/models/loras" \
         "${LORAS_MODELS[@]}"
@@ -179,6 +182,7 @@ function provisioning_download() {
 if [[ ! -f /.noprovisioning ]]; then
     provisioning_start
 fi
+
 
 
 

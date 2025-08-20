@@ -16,12 +16,11 @@ PIP_PACKAGES=(
 )
 
 NODES=(
+    "https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite"
+    "https://github.com/Fannovel16/ComfyUI-Frame-Interpolation"
+    "https://github.com/city96/ComfyUI-GGUF"
     #"https://github.com/ltdrdata/ComfyUI-Manager"
     #"https://github.com/cubiq/ComfyUI_essentials"
-)
-
-CUSTOM_NODES=(
-    "https://github.com/city96/ComfyUI-GGUF"
 )
 
 WORKFLOWS=(
@@ -61,10 +60,7 @@ function provisioning_start() {
     provisioning_get_files \
         "${workflows_dir}" \
         "${WORKFLOWS[@]}"
-    provisioning_get_files \
-        "${COMFYUI_DIR}/custom_nodes" \
-        "${CUSTOM_NODES[@]}"
-    provisioning_get_files \
+     provisioning_get_files \
         "${COMFYUI_DIR}/models/loras" \
         "${LORAS_MODELS[@]}"
     provisioning_get_files \
@@ -200,4 +196,5 @@ if [[ -f update_new.py ]]; then
     echo "Running updater again since it got updated."
     python update.py "$COMFYUI_DIR" --skip_self_update
 fi
+
 
